@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Supply Items Page
+    
+
+    
+    style 
+      include ../../styles.css
+    body
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href="/") Sales App
+            
+      div.collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/items") suplies
+          li.nav-item.active
+            a.nav-link(href="/additem") Add supply items
+          li.nav-item.active
+            a.nav-link(href="/bulk")  bulk
+
+  .container
+    h1.SupplyItems.mt-4 Supply Items
+
+    table.table.table-striped.mt-3
+      thead
+        tr
+          th Name
+          th Vendor
+
+      tbody
+        each supply in Object.entries(supplies)       
+            tr
+              td
+                a(href=`/items/${supply[1]._id}`)= supply[1].name
+              td= supply[1].vendor
+

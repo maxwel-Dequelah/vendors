@@ -1,0 +1,56 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Delete Items
+    
+
+    style 
+      include ../../styles.css
+
+    body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href="/") Sales App
+          
+        div.collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/items") suplies
+          li.nav-item.active
+            a.nav-link(href="/additem") Add supply items
+          li.nav-item.active
+            a.nav-link(href="/bulk")  bulk
+
+    div.container.mt-5
+      h1 Delete Items
+      table.table.table-striped
+        thead
+          tr
+            th Item Name
+            th Action
+        tbody
+          each item in items
+            tr
+              td= item.name
+              td
+                button.deleteBtn.btn.btn-danger(type="button" onclick=`deleteItem('${item._id}')`) Delete
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script.
+      const deleteItem = async (itemId) => {
+        try {
+          const response = await axios.delete(`/items/${itemId}`);
+          if (response.status == 201) {
+            alert('Item deleted successfully');
+            setTimeout()
+            window.location.reload(); 
+          } else {
+            alert('Failed to delete item');
+          }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+          alert('Failed to delete item');
+        }
+      };

@@ -7,7 +7,7 @@ const path = require("path");
 const supplierSchema = require("./supplierSchema");
 const { MongoClient } = require("mongodb");
 
-const port = 3000;
+const port = 4000;
 
 const connectionUri = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(connectionUri);

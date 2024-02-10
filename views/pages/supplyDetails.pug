@@ -1,0 +1,53 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Edit Supply Item
+   
+   
+    style 
+      include ../../styles.css
+    body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href="/") Sales App
+      
+      
+      div.collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/items") suplies
+          li.nav-item.active
+            a.nav-link(href="/additem") Add supply items
+          li.nav-item.active
+            a.nav-link(href="/bulk")  bulk
+
+    div.container.mt-5
+      h1 Edit Supply Item
+
+      form(action=`/items/${supplyInfo._id}`, method="PUT")
+        each val, key in supplyInfo
+          if key !== "_id" && key !== "rating"
+              div.form-group
+              label(for=`${key}`)= key
+              if key === 'description'
+                textarea.form-control(name=`${key}`, id=`${key}`, rows="5")= val
+              else
+                input.form-control(type="text", name=`${key}`, id=`${key}`, value=`${val}` )
+
+        div.form-group
+          label(for="userRating") User Rating (0-5)
+          input.form-control(type="number", name="userRating", id="userRating", min="0", max="5")
+
+        div.form-group
+          button.btn.btn-primary(type="submit") Update
+
+        div.form-group.mt-3
+          label Average Rating
+          if supplyInfo.rating && supplyInfo.rating.length > 0
+            - const averageRating = (supplyInfo.rating.reduce((acc, val) => acc + val) / supplyInfo.rating.length).toFixed(1)
+            | #{averageRating}
+          else
+            | None

@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Sales App
+    style 
+      include ../../styles.css
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href="/") Sales App
+      
+      
+
+      div.collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/items") Supplies
+          li.nav-item
+            a.nav-link(href="/additem") Add Supply Items
+          li.nav-item
+            a.nav-link(href="/bulk") bulk
+
+    div.container.mt-5
+      h1 Welcome to the Sales App
+      p This application allows you to manage supply items efficiently.
+
+      div.row.mt-4
+        div.col-sm-6
+          h3 About
+          p This app helps in managing the inventory of supply items. You can view, add, and perform bulk updates on supply items easily.
+
+        div.col-sm-6
+          h3 Features
+          ul
+            li View supply items
+            li Add new supply items
+            li Bulk update stock of items

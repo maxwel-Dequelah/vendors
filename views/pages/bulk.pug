@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Bulk Stock Update
+    
+    
+    style 
+      include ../../styles.css
+      
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href="/") Sales App
+          
+        div.collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/items") suplies
+          li.nav-item.active
+            a.nav-link(href="/additem") Add supply items
+          li.nav-item.active
+            a.nav-link(href="/bulk")  bulk
+    .container
+        div.container.mt-5
+        h1 Bulk Stock Update
+    
+        form#bulkStockForm(action="/addstock", method="POST")
+            table.table.table-striped
+                thead
+                    tr
+                    th Vendor
+                    th Category
+                    th Stock
+                    th Select
+                tbody
+                    each supply in supplies
+                        tr
+                            td= supply.vendor
+                            td= supply.category
+                            td= supply.stock
+                            td
+                                input.form-check-input(type="checkbox", 
+                                name="selectedSupplies", value=supply._id)
+
+                .form-group
+                label(for="incrementValue") Increment Stock Value:
+                input#incrementValue.form-control(type="number", 
+                name="incrementValue", min="1", step="1")
+
+                button#updateStockBtn.btn.btn-primary(type="submit") Update Stock
+
+                script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")

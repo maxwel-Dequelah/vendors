@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Add New Supply Item
+    
+    style 
+      include ../../styles.css
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+        a.navbar-brand(href="/") Sales App
+        
+        
+        div.collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ml-auto
+            li.nav-item.active
+              a.nav-link(href="/") Home
+            li.nav-item
+              a.nav-link(href="/items") suplies
+            li.nav-item.active
+              a.nav-link(href="/additem") Add supply items
+            li.nav-item.active
+              a.nav-link(href="/bulk")  bulk
+
+    div.container.mt-5
+        h1 Add New Supply Item
+        form(action='/items', method="POST")#newSupply 
+          .form-group
+            label(for="name") Name:
+            input#name.form-control(type="text", name="name")
+          
+          .form-group
+            label(for="category") Category:
+            input#category.form-control(type="text", name="category")
+          
+          .form-group
+            label(for="vendor") Vendor:
+            input#vendor.form-control(type="text", name="vendor")
+          
+          .form-group
+            label(for="price") Price:
+            input#price.form-control(type="number", name="price")
+          
+          .form-group
+            label(for="stock") Stock:
+            input#stock.form-control(type="number", name="stock")
+          
+          .form-group
+            label(for="description") Description:
+            textarea#description.form-control(name="description", rows="4", cols="50")
+
+          button#submitBtn.btn.btn-primary(type="submit") Add Supply Item
+
+   
