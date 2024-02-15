@@ -7,22 +7,28 @@ const path = require("path");
 const supplierSchema = require("./supplierSchema");
 const { MongoClient } = require("mongodb");
 
+const cors = require("cors");
+
 const port = 4000;
 
 const connectionUri = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(connectionUri);
 
+const corsOption = {
+  origin: ["http://localhost:3000"],
+};
+app.use(cors(corsOption));
 
 mongoose
   .connect(
-    "mongodb://127.0.0.1:27017",
-    // 'mongodb+srv://maxwel:qqhKCK5rrY1o57zI@cluster0.3iojfri.mongodb.net/',
+    // "mongodb://127.0.0.1:27017",
+    "mongodb+srv://vendors:2lHfUrqbQP4xRV4G@cluster0.3iojfri.mongodb.net/",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }
   )
-  .then(() => console.log('MongoDB connected'))
+  .then(() => console.log("MongoDB connected"))
   .catch((err) => {
     console.error(err.message);
     process.exit(1);
@@ -41,7 +47,7 @@ async function fetchSupplies() {
     const suppliesCollection = database.collection("supplies");
 
     const allSuppliesCursor = await suppliesCollection.find({});
-    const allSupplies = [];
+    let allSupplies = [];
 
     await allSuppliesCursor.forEach((supply) => {
       allSupplies.push(supply);
@@ -69,6 +75,23 @@ app.get("/items", async (req, res) => {
     res.json(supplies);
   } else {
     res.render("pages/supplies", { supplies });
+  }
+});
+
+app.get("/api/items", async (req, res) => {
+  const supplies = await fetchSupplies();
+  const acceptHeader = req.get("Accept");
+  if (acceptHeader && acceptHeader.includes("application/json")) {
+    const distictVendors = [];
+    supplies.map((vendor) => {
+      if (distictVendors.includes(vendor.category)) {
+      } else {
+        distictVendors.push(vendor.category);
+      }
+    });
+    res.json(distictVendors);
+  } else {
+    // res.json(supplies);
   }
 });
 
@@ -208,10 +231,8 @@ app.post("/addstock", async (req, res) => {
         );
       } catch (error) {
         console.error(`Error updating supply with _id ${id}:`, error);
-       
       }
-    })
-   
+    });
 
     if (updatedSupplies.nModified > 0) {
       return res.status(200).send("Stock updated successfully");
@@ -223,7 +244,6 @@ app.post("/addstock", async (req, res) => {
     return res.status(500).send("Failed to update stock");
   }
 });
-
 
 app.listen(port, () => {
   console.log(`server started at port 127:0.0.1:${port} ...`);

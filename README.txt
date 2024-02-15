@@ -1,5 +1,3 @@
-Ashwin Kumar Injarapu - 101192135
-
 List of files
 assignment3/
 │
